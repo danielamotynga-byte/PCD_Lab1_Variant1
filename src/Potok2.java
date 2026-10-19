@@ -1,4 +1,3 @@
-
 import java.util.function.Consumer;
 
 public class Potok2 implements Runnable {
@@ -17,26 +16,37 @@ public class Potok2 implements Runnable {
 
     @Override
     public void run() {
-
         String imya = Thread.currentThread().getName();
+        int[] chisla = new int[4];
+        int n = 0;
+        int grupp = 0;
 
-        vivod.accept(imya + ": Начало вычислений");
+        for (int i = mas.length - 1; i >= 0; i--) {
+            if (mas[i] % 2 == 0) {
+                chisla[n] = mas[i];
+                n++;
 
-        for (int i = mas.length - 1; i >= 2; i -= 4) {
+                if (n == 4) {
+                    int para1 = chisla[0] + chisla[1];
+                    int para2 = chisla[2] + chisla[3];
+                    int summa = para1 + para2;
+                    grupp++;
 
-            int pervoe = mas[i];
-            int vtoroe = mas[i - 2];
+                    vivod.accept(imya + ": Группа " + grupp
+                            + ": (" + chisla[0] + " + " + chisla[1] + ")"
+                            + " + (" + chisla[2] + " + " + chisla[3] + ")"
+                            + " = " + summa);
 
-            int raznost = pervoe - vtoroe;
-
-            vivod.accept(
-                    imya + ": Позиции " + (i + 1) +
-                            " и " + (i - 1) +
-                            " | " + pervoe + " - " +
-                            vtoroe + " = " + raznost
-            );
+                    n = 0;
+                }
+            }
         }
 
+        vivod.accept(imya + ": Обработано групп по две пары: " + grupp);
+        if (n > 0) {
+            vivod.accept(imya + ": Осталось чётных без полной группы: " + n);
+        }
         vivod.accept(imya + ": Работа завершена");
     }
 }
+
