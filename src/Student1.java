@@ -35,3 +35,5 @@ public class Student1 {
         th2.join();
     }
 }
+//пыгсрвоарв
+//fjkhdjfhvbj
